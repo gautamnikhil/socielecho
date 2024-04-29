@@ -14,6 +14,7 @@ const SignUpNew = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmpassword] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [avatarError, setAvatarError] = useState(null);
 
@@ -38,6 +39,9 @@ const SignUpNew = () => {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+  const handlecPasswordChange = (e) => {
+    setConfirmpassword(e.target.value);
   };
 
   const handleAvatarChange = (e) => {
@@ -75,6 +79,7 @@ const SignUpNew = () => {
     formData.append("name", name);
     formData.append("email", email);
     formData.append("password", password);
+    formData.append("confirmpassword", confirmpassword);
     formData.append("avatar", avatar);
     formData.append("role", "general");
     formData.append("isConsentGiven", isConsentGiven.toString());
@@ -261,20 +266,69 @@ const SignUpNew = () => {
               autoComplete="off"
             />
           </div>
+          <div className="relative mt-4 flex items-center">
+            <span className="absolute">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="mx-3 h-6 w-6 text-gray-300"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                />
+              </svg>
+            </span>
+            <input
+              id="confirmpassword"
+              name="confirmpassword"
+              type="password"
+              value={confirmpassword}
+              onChange={handlecPasswordChange}
+              className="block w-full rounded-lg border bg-white px-10 py-3 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
+              placeholder="Confirm Password"
+              required
+              autoComplete="off"
+            />
+          </div>
           <div className="mt-6">
-            <button
-              disabled={loading}
-              type="submit"
-              className={`w-full transform rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ${
-                loading ? "cursor-not-allowed opacity-50" : ""
-              }`}
-            >
-              {loading ? (
-                <ButtonLoadingSpinner loadingText={loadingText} />
-              ) : (
-                <span>Sign Up</span>
-              )}
-            </button>
+            {password !== confirmpassword ? (
+              <button
+                style={{ cursor: "no-drop" }}
+                disabled={loading}
+                type="submit"
+                className={`w-full transform rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ${
+                  loading ? "cursor-not-allowed opacity-50" : ""
+                }`}
+              >
+                {loading ? (
+                  <ButtonLoadingSpinner loadingText={loadingText} />
+                ) : (
+                  <span>Sign Up</span>
+                )}
+              </button>
+            ) : (
+              <>
+                {" "}
+                <button
+                  disabled={loading}
+                  type="submit"
+                  className={`w-full transform rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ${
+                    loading ? "cursor-not-allowed opacity-50" : ""
+                  }`}
+                >
+                  {loading ? (
+                    <ButtonLoadingSpinner loadingText={loadingText} />
+                  ) : (
+                    <span>Sign Up</span>
+                  )}
+                </button>
+              </>
+            )}
 
             <div onClick={() => setIsModalOpen(true)} className="mt-6">
               {isConsentGiven && !isModerator ? (
