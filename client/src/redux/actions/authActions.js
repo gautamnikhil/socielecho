@@ -57,7 +57,7 @@ export const signUpAction =
     try {
       localStorage.removeItem("profile");
 
-      if(formData.get('password')!==formData.get('cpassword')){
+      if(formData.get('password')!==formData.get('confirmPassword')){
         dispatch({
           type: types.SIGNUP_FAIL,
           payload: ["Password is not Matched"]

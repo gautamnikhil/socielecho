@@ -14,7 +14,7 @@ const SignUpNew = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [cpassword, setcPassword] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState("");
 
 
   const [avatar, setAvatar] = useState(null);
@@ -42,8 +42,8 @@ const SignUpNew = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-  const handlecPasswordChange = (e) => {
-    setcPassword(e.target.value);
+  const handleconfirmPassword = (e) => {
+    setconfirmPassword(e.target.value);
   };
 
 
@@ -82,7 +82,7 @@ const SignUpNew = () => {
     formData.append("name", name);
     formData.append("email", email);
     formData.append("password", password);
-    formData.append("cpassword", cpassword);
+    formData.append("confirmPassword", confirmPassword);
     formData.append("avatar", avatar);
     formData.append("role", "general");
     formData.append("isConsentGiven", isConsentGiven.toString());
@@ -288,11 +288,11 @@ const SignUpNew = () => {
               </svg>
             </span>
             <input
-              id="cpassword"
-              name="cpassword"
+              id="confirmPassword"
+              name="confirmPassword"
               type="password"
-              value={cpassword}
-              onChange={handlecPasswordChange}
+              value={confirmPassword}
+              onChange={handleconfirmPassword}
               className="block w-full rounded-lg border bg-white px-10 py-3 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
               placeholder="Password"
               required
