@@ -56,6 +56,15 @@ export const signUpAction =
   async (dispatch) => {
     try {
       localStorage.removeItem("profile");
+
+      if(formData.get('password')!==formData.get('cpassword')){
+        dispatch({
+          type: types.SIGNUP_FAIL,
+          payload: ["Password is not Matched"]
+        })
+        return;
+      }
+
       const response = await api.signUp(formData);
       const { error } = response;
       if (error) {
