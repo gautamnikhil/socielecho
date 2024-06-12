@@ -56,6 +56,13 @@ export const signUpAction =
   async (dispatch) => {
     try {
       localStorage.removeItem("profile");
+      if(formData.get('password')!==formData.get('confirmPassword')){
+        dispatch({
+          type: types.SIGNUP_FAIL,
+          payload: ["Confirm Password Doesn't Match"]
+        })
+        return;
+      }
       const response = await api.signUp(formData);
       const { error } = response;
       if (error) {
