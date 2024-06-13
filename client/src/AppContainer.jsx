@@ -14,9 +14,10 @@ const ErrorComponent = ({ errorMessage }) => (
 
 const AppContainer = () => {
   const location = useLocation();
-  const [store, setStore] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [storeLoading, setStoreLoading] = useState(true);
+  const [status, setStatus] = useState(true);
   const [error, setError] = useState(null);
+  const [store, setStore] = useState(null);
 
   useEffect(() => {
     const checkServerStatus = async () => {
@@ -25,7 +26,7 @@ const AppContainer = () => {
       } catch (err) {
         setError("Server is down. Please try again later.");
       } finally {
-        setLoading(false);
+        setStatus(false);
       }
     };
 
@@ -43,17 +44,21 @@ const AppContainer = () => {
       } catch (err) {
         setError(`Error initializing the app: ${err.message}`);
       } finally {
-        setLoading(false);
+        setStoreLoading(false);
       }
     };
 
     initializeStore();
   }, []);
 
-  if (loading || error) {
+  if ((storeLoading && status && !error) || error) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        {loading ? <CommonLoading /> : <ErrorComponent errorMessage={error} />}
+      <div className="flex h-screen items-center justify-center">
+        {storeLoading && status && !error ? (
+          <CommonLoading />
+        ) : (
+          <ErrorComponent errorMessage={error} />
+        )}
       </div>
     );
   }
