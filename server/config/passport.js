@@ -4,11 +4,14 @@ const Token = require("../models/token.model");
 const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
 const passport = require("passport");
+require('dotenv').config();
 const opts = {};
-const jwt = require("jsonwebtoken");
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = process.env.SECRET;
-
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.JWT_SECRET // Ensure it's loading from environment
+};
+passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
+  // Add your logic to find and authenticate the user
+}));
 passport.use(
   new JwtStrategy(opts, async function (jwt_payload, done) {
     try {
